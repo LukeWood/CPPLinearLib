@@ -18,11 +18,19 @@ class matrix
 			matrix(const matrix&);
 			matrix(int,int);
 			~matrix();
+
 			int* operator[](int) const;
 			matrix operator*(int) const;
+
 			int getHeight() const;
 			int getWidth() const;
+			
+			int dot(const matrix&);
+
+			//Transpose			
+			matrix T();
 };
+linear::matrix transpose(const linear::matrix&);
 linear::matrix operator*(const linear::matrix&, const linear::matrix&);
 linear::matrix operator*(const int, const linear::matrix&);
 ostream& operator<<(ostream&,const matrix&);

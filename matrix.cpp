@@ -66,17 +66,17 @@ matrix::matrix(int iheight, int iwidth)
 
 matrix::matrix(const matrix& copyFrom)
 {
-height = copyFrom.getHeight();
-width = copyFrom.getWidth();
-rows = new int*[height];
-for(int i = 0; i < height; i++)
-{
-	rows[i] = new int[width];
-	for(int j = 0; j < width; j++)
+	height = copyFrom.getHeight();
+	width = copyFrom.getWidth();
+	rows = new int*[height];
+	for(int i = 0; i < height; i++)
 	{
-		rows[i][j] = copyFrom[i][j];
+		rows[i] = new int[width];
+		for(int j = 0; j < width; j++)
+		{
+			rows[i][j] = copyFrom[i][j];
+		}
 	}
-}
 }
 matrix::~matrix()
 {
@@ -85,6 +85,48 @@ for(int i = 0; i < height; i++)
 		delete[] rows[i];
 }
 delete[] rows;
+}
+
+matrix matrix::T()
+{
+	matrix m(width, height);
+	for(int i =0; i < height; i++)
+	{
+		for(int j =0; j< width; j++)
+		{
+			m[j][i] = rows[i][j];
+		}
+	}
+	return m;
+}
+matrix linear::transpose(const matrix& toTranspose)
+{
+	matrix m(toTranspose.getWidth(),toTranspose.getHeight());
+	for(int i = 0; i < m.getHeight(); i++)
+	{
+		for(int j = 0; j < m.getWidth(); j++)
+		{
+			m[j][i] = toTranspose[i][j];
+		}
+	}
+	return m;
+}
+
+int matrix::dot(const matrix& other)
+{
+	if(height == other.getHeight() && width == other.getWidth())
+	{
+		int dotProd = 0;
+		for(int i = 0; i< height; i++)
+		{
+			for(int j = 0; j < width; j++)
+			{
+				dotProd += (rows[i][j] * other[i][j]);
+			}
+		}
+		return dotProd;
+	}
+	return -1;
 }
 
 matrix linear::operator*(const matrix& first,const matrix& second)
@@ -103,7 +145,7 @@ matrix linear::operator*(const matrix& first,const matrix& second)
 			int sum = 0;
 			for(int k = 0; k < second.getHeight(); k++)
 			{
-			sum = sum + (first[i][k]*second[j][k]);
+				sum = sum + (first[i][k]*second[j][k]);
 			}
 			m[i][j] = sum;
 		}
@@ -112,15 +154,15 @@ matrix linear::operator*(const matrix& first,const matrix& second)
 }
 matrix linear::matrix::operator*(int scalar) const
 {
-matrix m(height,width);
-for(int i = 0; i < height; i++)
-{
-	for(int j = 0; j < width; j++)
+	matrix m(height,width);
+	for(int i = 0; i < height; i++)
 	{
-		m[i][j] = rows[i][j] * scalar;
+		for(int j = 0; j < width; j++)
+		{
+			m[i][j] = rows[i][j] * scalar;
+		}
 	}
-}
-return m;
+	return m;
 }
 
 int* linear::matrix::operator[](int index) const

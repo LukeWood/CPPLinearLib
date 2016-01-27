@@ -5,15 +5,13 @@ using namespace linear;
 using std::cout;
 int main()
 {
-matrix m1(2,2);
-m1[1][0] = 0;
-m1[0][1]=0;
-m1[0][0]=0;
-m1[1][1]=1;
-matrix m2(2,2);
-matrix m4 = m1*2;
-m4[0][0]=6;
-cout<<m4;
-matrix m5 = 3*m4;
-cout<<m5;
+matrix m1(2,1);
+m1[0][0] = 1;
+m1[1][0] = 1;
+matrix m2(2,1);
+m2[0][0]=2;
+m2[1][0]=3;
+cout<<m1;
+cout<<m2;
+cout<<m1.dot(m2);
 }
