@@ -12,5 +12,8 @@ m1[0][0]=0;
 m1[1][1]=1;
 matrix m2(2,2);
 matrix m4 = m1*2;
+m4[0][0]=6;
 cout<<m4;
+matrix m5 = 3*m4;
+cout<<m5;
 }

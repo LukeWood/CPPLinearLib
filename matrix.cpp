@@ -27,6 +27,19 @@ ostream& linear::operator<<(ostream& stream, const matrix& toprint)
 	return stream;
 }
 
+matrix linear::operator*(int scalar, const matrix& tomult)
+{
+	matrix m(tomult);
+	for(int i = 0; i < m.getHeight(); i++)
+	{
+		for(int j = 0; j < m.getWidth(); j++)
+		{
+			m[i][j] = m[i][j] * scalar;
+		}
+	}
+	return m;
+}
+
 int matrix::getHeight() const
 {
 	return height;

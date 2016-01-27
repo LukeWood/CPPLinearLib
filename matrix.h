@@ -9,6 +9,7 @@ class matrix
 {
 	friend ostream& operator<<(ostream&,const matrix&);
 	friend matrix operator*(const matrix&,const matrix&);
+	friend matrix operator*(int scalar, const matrix&);
 		private:
 			int** rows;
 			int height;
@@ -23,6 +24,7 @@ class matrix
 			int getWidth() const;
 };
 linear::matrix operator*(const linear::matrix&, const linear::matrix&);
+linear::matrix operator*(const int, const linear::matrix&);
 ostream& operator<<(ostream&,const matrix&);
 }
 #endif
