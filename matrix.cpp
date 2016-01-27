@@ -9,7 +9,14 @@ ostream& linear::operator<<(ostream& stream, const matrix& toprint)
 	{
 		for(int j = 0; j < toprint.getWidth(); j++)
 		{
-			stream<<toprint[i][j]<<" ";
+			if(j!=toprint.getWidth()-1)
+			{
+				stream<<toprint[i][j]<<" ";
+			}
+			else
+			{
+				stream<<toprint[i][j];
+			}
 		}
 		if(i!=toprint.getHeight()-1)
 		{
@@ -37,6 +44,10 @@ matrix::matrix(int iheight, int iwidth)
 	for(int i=0; i < iheight; i++)
 	{
 		rows[i] = new int[iwidth];
+		for( int j = 0; j < iwidth; j++)
+		{
+			rows[i][j] = 0;
+		}
 	}
 }
 
