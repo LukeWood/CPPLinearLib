@@ -1,20 +1,26 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 #include <ostream>
-namespace neuralnets
+using std::ostream;
+namespace linear
 {
+
 class matrix
 {
-	std::ostream friend &operator<<(std::ostream&,matrix&);
-	matrix friend operator*(const matrix&,const matrix&);
+	friend ostream& operator<<(ostream&,const matrix&);
+	friend matrix operator*(const matrix&,const matrix&);
 	private:
 		int** rows;
 		int height;
 		int width;	
 	public:
-		matrix operator=(const matrix&);
+		matrix(const matrix&);
 		matrix(int,int);
-		int* operator[](int);
+		int* operator[](int) const;
+		int getHeight() const;
+		int getWidth() const;
 };
+linear::matrix operator*(const linear::matrix&, const linear::matrix&);
+ostream& operator<<(ostream&,const matrix&);
 }
 #endif

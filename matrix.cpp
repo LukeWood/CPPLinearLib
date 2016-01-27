@@ -1,17 +1,32 @@
 #include "matrix.h"
-#include <iostream>
-using namespace neuralnets;
-std::ostream &operator<<(std::ostream& stream, matrix& toprint)
+#include <ostream>
+using linear::matrix;
+using std::ostream;
+ostream& linear::operator<<(ostream& stream, const matrix& toprint)
 {
-	for(int i = 0; i < toprint.height; i++)
+	stream<<"[";
+	for(int i = 0; i < toprint.getHeight(); i++)
 	{
-		for(int j = 0; j < toprint.width; j++)
+		for(int j = 0; j < toprint.getWidth(); j++)
 		{
-			stream<<toprint[i][j];
+			stream<<toprint[i][j]<<" ";
 		}
-		stream<<"\n";
+		if(i!=toprint.getHeight()-1)
+		{
+		stream<<"\n ";
+		}
 	}
+	stream<<"]\n";
 	return stream;
+}
+
+int matrix::getHeight() const
+{
+	return height;
+}
+int matrix::getWidth() const
+{
+	return width;
 }
 
 matrix::matrix(int iheight, int iwidth)
@@ -25,7 +40,7 @@ matrix::matrix(int iheight, int iwidth)
 	}
 }
 
-matrix matrix::operator=(const matrix& copyFrom)
+matrix::matrix(const matrix& copyFrom)
 {
 height = copyFrom.height;
 width = copyFrom.width;
@@ -40,18 +55,31 @@ for(int i = 0; i < height; i++)
 }
 }
 
-matrix operator*( matrix& first, matrix& second)
+matrix linear::operator*(const matrix& first,const matrix& second)
 {
-	if(first.width != second.height)
+	if(first.getWidth() != second.getHeight())
 	{
 		matrix m(1,1);
 		m[0][0] = 0;
 		return m;
 	}
-	
+	matrix m(first.getHeight(),second.getWidth());
+	for(int i = 0; i < first.getHeight(); i++)
+	{
+		for(int j = 0; j < second.getWidth(); j++)
+		{
+			int sum = 0;
+			for(int k = 0; k < second.getHeight(); k++)
+			{
+			sum = sum + (first[i][k]*second[j][k]);
+			}
+			m[i][j] = sum;
+		}
+	}
+	return m;
 }
 
-int* matrix::operator [](int index)
+int* linear::matrix::operator[](int index) const
 {
 	return rows[index];
 }
