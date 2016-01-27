@@ -7,6 +7,7 @@ namespace linear
 
 class matrix
 {
+
 	friend ostream& operator<<(ostream&,const matrix&);
 	friend matrix operator*(const matrix&,const matrix&);
 	friend matrix operator*(int scalar, const matrix&);
@@ -16,6 +17,7 @@ class matrix
 			int width;	
 		public:
 			matrix(const matrix&);
+			matrix();
 			matrix(int,int);
 			~matrix();
 
@@ -30,9 +32,11 @@ class matrix
 			//Transpose			
 			matrix T();
 };
+
 linear::matrix transpose(const linear::matrix&);
 linear::matrix operator*(const linear::matrix&, const linear::matrix&);
 linear::matrix operator*(const int, const linear::matrix&);
 ostream& operator<<(ostream&,const matrix&);
+
 }
 #endif

@@ -64,6 +64,14 @@ matrix::matrix(int iheight, int iwidth)
 	}
 }
 
+matrix::matrix()
+{
+	//width = 1;
+	//height = 1;
+	//rows = new int*[1];
+	//rows[0][0] = 0;
+}
+
 matrix::matrix(const matrix& copyFrom)
 {
 	height = copyFrom.getHeight();
