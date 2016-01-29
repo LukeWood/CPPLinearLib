@@ -88,22 +88,89 @@ matrix::matrix(const matrix& copyFrom)
 	}
 }
 
+matrix matrix::operator+(const matrix& toAdd) const
+{
+	if(width!= toAdd.width && height != toAdd.height)
+	{
+		matrix m(height,width);
+		for(int i = 0; i < height; i++)
+		{
+			for(int j = 0; j < width; j++)
+			{
+				m[i][j] = rows[i][j] + toAdd[i][j];
+			}
+		}
+		return m;
+	}
+	return matrix();
+}
+
+
+matrix matrix::operator-(const matrix& toSub) const
+{
+	if(width== toSub.width && height == toSub.height)
+	{
+		matrix m(height,width);
+		for(int i = 0; i < height; i++)
+		{
+			for(int j = 0; j < width; j++)
+			{
+				m[i][j] = rows[i][j] - toSub[i][j];
+			}
+		}
+		return m;
+	}
+	else
+	{
+		return matrix();
+	}
+}
+
+matrix matrix::operator+(int toAdd) const
+{
+        matrix m(height,width);
+        for(int i = 0; i < height; i++)
+        {
+               for(int j = 0; j < width; j++)
+               {
+                        m[i][j] = rows[i][j] + toAdd;
+               }
+        }
+        return m;
+}
+
+matrix matrix::operator-(int toSub) const
+{
+        matrix m(height,width);
+        for(int i = 0; i < height; i++)
+        {
+               for(int j = 0; j < width; j++)
+               {
+                        m[i][j] = rows[i][j] + toSub;
+               }
+        }
+        return m;
+}
+
 matrix matrix::operator=(const matrix& copyFrom)
 {
-	for(int i = 0; i < copyFrom.getHeight(); i++)
+	if(!(this == &arg))
 	{
-		delete[] rows[i];
-	}
-	delete[] rows;
-	height = copyFrom.getHeight();
-	width = copyFrom.getWidth();
-	rows = new int*[height];
-	for(int i = 0; i < height; i++)
-	{
-		rows[i] = new int[width];
-		for(int j = 0; j < copyFrom.getWidth(); j++)
+		for(int i = 0; i < copyFrom.getHeight(); i++)
 		{
-			rows[i][j] = copyFrom[i][j];
+			delete[] rows[i];
+		}
+		delete[] rows;
+		height = copyFrom.getHeight();
+		width = copyFrom.getWidth();
+		rows = new int*[height];
+		for(int i = 0; i < height; i++)
+		{
+			rows[i] = new int[width];
+			for(int j = 0; j < copyFrom.getWidth(); j++)
+			{
+				rows[i][j] = copyFrom[i][j];
+			}
 		}
 	}
 	return *this;

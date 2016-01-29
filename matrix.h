@@ -24,8 +24,14 @@ class matrix
 
 			int* operator[](int) const;
 			matrix operator*(int) const;
+			matrix operator+(const matrix&) const;
+			matrix operator-(const matrix&) const;
+			matrix operator+(int) const;
+			matrix operator-(int) const;
 
 			matrix operator=(const matrix&);
+			
+
 
 			int getHeight() const;
 			int getWidth() const;
