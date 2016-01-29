@@ -66,10 +66,11 @@ matrix::matrix(int iheight, int iwidth)
 
 matrix::matrix()
 {
-	//width = 1;
-	//height = 1;
-	//rows = new int*[1];
-	//rows[0][0] = 0;
+	width = 1;
+	height = 1;
+	rows = new int*[1];
+	rows[0] = new int[1];
+	rows[0][0] = 0;
 }
 
 matrix::matrix(const matrix& copyFrom)
@@ -86,6 +87,28 @@ matrix::matrix(const matrix& copyFrom)
 		}
 	}
 }
+
+matrix matrix::operator=(const matrix& copyFrom)
+{
+	for(int i = 0; i < copyFrom.getHeight(); i++)
+	{
+		delete[] rows[i];
+	}
+	delete[] rows;
+	height = copyFrom.getHeight();
+	width = copyFrom.getWidth();
+	rows = new int*[height];
+	for(int i = 0; i < height; i++)
+	{
+		rows[i] = new int[width];
+		for(int j = 0; j < copyFrom.getWidth(); j++)
+		{
+			rows[i][j] = copyFrom[i][j];
+		}
+	}
+	return *this;
+}
+
 matrix::~matrix()
 {
 for(int i = 0; i < height; i++)
@@ -95,7 +118,7 @@ for(int i = 0; i < height; i++)
 delete[] rows;
 }
 
-matrix matrix::T()
+matrix matrix::T() const
 {
 	matrix m(width, height);
 	for(int i =0; i < height; i++)
@@ -107,20 +130,8 @@ matrix matrix::T()
 	}
 	return m;
 }
-matrix linear::transpose(const matrix& toTranspose)
-{
-	matrix m(toTranspose.getWidth(),toTranspose.getHeight());
-	for(int i = 0; i < m.getHeight(); i++)
-	{
-		for(int j = 0; j < m.getWidth(); j++)
-		{
-			m[j][i] = toTranspose[i][j];
-		}
-	}
-	return m;
-}
 
-int matrix::dot(const matrix& other)
+int matrix::dot(const matrix& other) const
 {
 	if(height == other.getHeight() && width == other.getWidth())
 	{
@@ -148,7 +159,7 @@ matrix linear::operator*(const matrix& first,const matrix& second)
 	matrix m(first.getHeight(),second.getWidth());
 	for(int i = 0; i < first.getHeight(); i++)
 	{
-		for(int j = 0; j < second.getWidth(); j++)
+		for(int j = 0; j < second.getHeight(); j++)
 		{
 			int sum = 0;
 			for(int k = 0; k < second.getHeight(); k++)
