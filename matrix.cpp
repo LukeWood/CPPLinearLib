@@ -159,12 +159,12 @@ matrix linear::operator*(const matrix& first,const matrix& second)
 	matrix m(first.getHeight(),second.getWidth());
 	for(int i = 0; i < first.getHeight(); i++)
 	{
-		for(int j = 0; j < second.getHeight(); j++)
+		for(int j = 0; j < second.getWidth(); j++)
 		{
 			int sum = 0;
 			for(int k = 0; k < second.getHeight(); k++)
 			{
-				sum = sum + (first[i][k]*second[j][k]);
+				sum = sum + (first[i][k]*second[k][j]);
 			}
 			m[i][j] = sum;
 		}
