@@ -10,10 +10,10 @@ class matrix
 
 	friend ostream& operator<<(ostream&,const matrix&);
 	friend matrix operator*(const matrix&,const matrix&);
-	friend matrix operator*(int scalar, const matrix&);
+	friend matrix operator*(double scalar, const matrix&);
 	
 		private:
-			int** rows;
+			double** rows;
 			int height;
 			int width;	
 		public:
@@ -22,21 +22,19 @@ class matrix
 			matrix(int,int);
 			~matrix();
 
-			int* operator[](int) const;
-			matrix operator*(int) const;
+			double* operator[](int) const;
+			matrix operator*(double) const;
 			matrix operator+(const matrix&) const;
 			matrix operator-(const matrix&) const;
-			matrix operator+(int) const;
-			matrix operator-(int) const;
+			matrix operator+(double) const;
+			matrix operator-(double) const;
 
 			matrix operator=(const matrix&);
 			
-
-
 			int getHeight() const;
 			int getWidth() const;
 			
-			int dot(const matrix&) const;
+			double dot(const matrix&) const;
 			
 			//Transpose			
 			matrix T() const;

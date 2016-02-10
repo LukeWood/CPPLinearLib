@@ -53,10 +53,10 @@ matrix::matrix(int iheight, int iwidth)
 {
 	height = iheight;
 	width = iwidth;
-	rows = new int*[iheight];
+	rows = new double*[iheight];
 	for(int i=0; i < iheight; i++)
 	{
-		rows[i] = new int[iwidth];
+		rows[i] = new double[iwidth];
 		for( int j = 0; j < iwidth; j++)
 		{
 			rows[i][j] = 0;
@@ -68,8 +68,8 @@ matrix::matrix()
 {
 	width = 1;
 	height = 1;
-	rows = new int*[1];
-	rows[0] = new int[1];
+	rows = new double*[1];
+	rows[0] = new double[1];
 	rows[0][0] = 0;
 }
 
@@ -77,10 +77,10 @@ matrix::matrix(const matrix& copyFrom)
 {
 	height = copyFrom.getHeight();
 	width = copyFrom.getWidth();
-	rows = new int*[height];
+	rows = new double*[height];
 	for(int i = 0; i < height; i++)
 	{
-		rows[i] = new int[width];
+		rows[i] = new double[width];
 		for(int j = 0; j < width; j++)
 		{
 			rows[i][j] = copyFrom[i][j];
@@ -126,7 +126,7 @@ matrix matrix::operator-(const matrix& toSub) const
 	}
 }
 
-matrix matrix::operator+(int toAdd) const
+matrix matrix::operator+(double toAdd) const
 {
         matrix m(height,width);
         for(int i = 0; i < height; i++)
@@ -139,7 +139,7 @@ matrix matrix::operator+(int toAdd) const
         return m;
 }
 
-matrix matrix::operator-(int toSub) const
+matrix matrix::operator-(double toSub) const
 {
         matrix m(height,width);
         for(int i = 0; i < height; i++)
@@ -154,19 +154,19 @@ matrix matrix::operator-(int toSub) const
 
 matrix matrix::operator=(const matrix& copyFrom)
 {
-	if(!(this == &arg))
+	if(!(this == &copyFrom))
 	{
-		for(int i = 0; i < copyFrom.getHeight(); i++)
+		for(int i = 0; i < height; i++)
 		{
 			delete[] rows[i];
 		}
 		delete[] rows;
 		height = copyFrom.getHeight();
 		width = copyFrom.getWidth();
-		rows = new int*[height];
+		rows = new double*[height];
 		for(int i = 0; i < height; i++)
 		{
-			rows[i] = new int[width];
+			rows[i] = new double[width];
 			for(int j = 0; j < copyFrom.getWidth(); j++)
 			{
 				rows[i][j] = copyFrom[i][j];
@@ -198,11 +198,11 @@ matrix matrix::T() const
 	return m;
 }
 
-int matrix::dot(const matrix& other) const
+double matrix::dot(const matrix& other) const
 {
 	if(height == other.getHeight() && width == other.getWidth())
 	{
-		int dotProd = 0;
+		double dotProd = 0;
 		for(int i = 0; i< height; i++)
 		{
 			for(int j = 0; j < width; j++)
@@ -238,7 +238,7 @@ matrix linear::operator*(const matrix& first,const matrix& second)
 	}
 	return m;
 }
-matrix linear::matrix::operator*(int scalar) const
+matrix linear::matrix::operator*(double scalar) const
 {
 	matrix m(height,width);
 	for(int i = 0; i < height; i++)
@@ -251,7 +251,7 @@ matrix linear::matrix::operator*(int scalar) const
 	return m;
 }
 
-int* linear::matrix::operator[](int index) const
+double* linear::matrix::operator[](int index) const
 {
 	return rows[index];
 }
